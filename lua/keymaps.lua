@@ -51,4 +51,45 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- NOTE: Configuracions meves
+
+-- Afegir línies sense sortir de mode normal
+vim.keymap.set('n', 'oi', 'i<Enter><Esc>_', { desc = 'Add line jump before character' })
+vim.keymap.set('n', 'oa', 'a<Enter><Esc>_', { desc = 'Add line jump before character' })
+vim.keymap.set('n', 'oo', 'm`o<Esc>``', { desc = 'Add line jump before character' })
+vim.keymap.set('n', 'OO', 'm`O<Esc>``', { desc = 'Add line jump before character' })
+
+-- Lilypond & LaTeX
+vim.diagnostic.config { -- Show diagnostics if errors
+  virtual_text = true,
+  signs = true,
+  update_in_insert = false,
+  underline = true,
+}
+
+vim.api.nvim_create_autocmd('BufEnter', { -- Better highlights
+  command = 'syntax sync fromstart',
+  pattern = { '*.ly', '*.ily', '*.tex', '*.texi', '*.texinfo' },
+})
+
+vim.api.nvim_create_autocmd('QuickFixCmdPost', { -- Show quickfix if errors, else close window
+  command = 'cwindow',
+  pattern = '*',
+})
+
+-- Inverse search (cmd+shift+click pdf line will focus on the latex line that yields that)
+vim.cmd [[
+ function! s:TexFocusVim() abort
+  " Replace `TERMINAL` with the name of your terminal application
+  " Example: execute "!open -a iTerm"  
+  " Example: execute "!open -a Alacritty"
+  silent execute "!open -a Alacritty"
+  redraw!
+ endfunction 
+ augroup vimtex_event_focus
+  au!
+  au User VimtexEventViewReverse call s:TexFocusVim()
+ augroup END
+]]
+
 -- vim: ts=2 sts=2 sw=2 et
