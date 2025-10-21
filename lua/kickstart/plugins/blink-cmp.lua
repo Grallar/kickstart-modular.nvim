@@ -30,11 +30,17 @@ return {
         },
         opts = {},
       },
+      'erooke/blink-cmp-latex',
+      'Kaiser-Yang/blink-cmp-dictionary', -- Required for dictionary completion
       'folke/lazydev.nvim',
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
     opts = {
+      --[[enabled = function()
+        return not vim.tbl_contains({ 'tex', 'latex' }, vim.bo.filetype) and vim.bo.buftype ~= 'prompt'
+      end,
+      ]]
       keymap = {
         -- 'default' (recommended) for mappings similar to built-in completions
         --   <c-y> to accept ([y]es) the completion.
@@ -76,11 +82,34 @@ return {
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'latex' }, -- Add 'dictionary'
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          latex = {
+            name = 'Latex',
+            module = 'blink-cmp-latex',
+            opts = {
+              -- set to true to insert the latex command instead of the symbol
+              insert_command = false,
+            },
+          },
         },
+        --[[dictionary = {
+          module = 'blink-cmp-dictionary',
+          name = 'Dict',
+          min_keyword_length = 3,
+          max_items = 8,
+          opts = {
+            dictionary_files = function()
+              if vim.bo.filetype == 'lilypond' then -- Add lilypond words to sources
+                return vim.fn.glob(vim.fn.expand '$LILYDICTPATH' .. '/*', true, true)
+              end
+            end,
+          },
+        },
+        ]]
       },
+      opts_extend = { 'sources.default' },
 
       snippets = { preset = 'luasnip' },
 
