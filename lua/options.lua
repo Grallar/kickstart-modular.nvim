@@ -81,4 +81,8 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- Configuracions meves
+--
+-- El plugin VimTex ho canvia a 1, però com que ho fa més tard aquí especifiquem que és 1 i així ho serà per altres tipus de fitxers
+vim.o.conceallevel = 0
 -- vim: ts=2 sts=2 sw=2 et

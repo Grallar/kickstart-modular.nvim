@@ -53,11 +53,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- NOTE: Configuracions meves
 
+-- Centrar amb el moviment de pàgina
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Center around selected line after page down' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Center around selected line after page up' })
+
 -- Afegir línies sense sortir de mode normal
 vim.keymap.set('n', 'oi', 'i<Enter><Esc>_', { desc = 'Add line jump before character' })
-vim.keymap.set('n', 'oa', 'a<Enter><Esc>_', { desc = 'Add line jump before character' })
-vim.keymap.set('n', 'oo', 'm`o<Esc>``', { desc = 'Add line jump before character' })
-vim.keymap.set('n', 'OO', 'm`O<Esc>``', { desc = 'Add line jump before character' })
+vim.keymap.set('n', 'oa', 'a<Enter><Esc>_', { desc = 'Add line jump after character' })
+vim.keymap.set('n', 'oo', 'm`o<Esc>``', { desc = 'Add line jump below line' })
+vim.keymap.set('n', 'OO', 'm`O<Esc>``', { desc = 'Add line jump above line' })
 
 -- Lilypond & LaTeX
 vim.diagnostic.config { -- Show diagnostics if errors
@@ -91,5 +95,12 @@ vim.cmd [[
   au User VimtexEventViewReverse call s:TexFocusVim()
  augroup END
 ]]
+
+-- Open terminal through shortcut
+vim.keymap.set('n', '<leader>t', ':term ++close<cr>')
+vim.keymap.set('t', '<leader>t', '<c-w>:term ++close<cr>')
+-- Close terminal through shortcut
+vim.keymap.set('n', '<leader>T', ':tab term ++close<cr>')
+vim.keymap.set('t', '<leader>T', '<c-w>:tab term ++close<cr>')
 
 -- vim: ts=2 sts=2 sw=2 et
