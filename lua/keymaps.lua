@@ -26,10 +26,10 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<C-h>', ':wincmd h<CR>', { desc = 'Move to the left window' })
+vim.keymap.set('n', '<C-l>', ':wincmd l<CR>', { desc = 'Move to the right window' })
+vim.keymap.set('n', '<C-j>', ':wincmd j<CR>', { desc = 'Move to the lower window' })
+vim.keymap.set('n', '<C-k>', ':wincmd k<CR>', { desc = 'Move to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -96,11 +96,14 @@ vim.cmd [[
  augroup END
 ]]
 
--- Open terminal through shortcut
+--[==[-- Open terminal through shortcut
 vim.keymap.set('n', '<leader>t', ':term ++close<cr>')
 vim.keymap.set('t', '<leader>t', '<c-w>:term ++close<cr>')
 -- Close terminal through shortcut
 vim.keymap.set('n', '<leader>T', ':tab term ++close<cr>')
 vim.keymap.set('t', '<leader>T', '<c-w>:tab term ++close<cr>')
+--]==]
+
+vim.keymap.set('n', '<leader>e', ':Ex<Cr>', { desc = 'Explore shortcut' })
 
 -- vim: ts=2 sts=2 sw=2 et
