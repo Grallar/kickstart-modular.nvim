@@ -22,8 +22,8 @@ return {
         backend = nil,
         main_file = 'main.ly',
         main_folder = '%:p:h',
-        include_dir = nil,
-        pdf_viewer = 'mupdf',
+        include_dir = { '~/development/musica/lilypond/extra_files/' },
+        pdf_viewer = nil,
         errors = {
           diagnostics = true,
           quickfix = 'external',

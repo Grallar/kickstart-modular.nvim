@@ -82,7 +82,7 @@ return {
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'latex' }, -- Add 'dictionary'
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'latex', 'dictionary' }, -- Add 'dictionary'
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
           latex = {
@@ -91,6 +91,19 @@ return {
             opts = {
               -- set to true to insert the latex command instead of the symbol
               insert_command = false,
+            },
+          },
+          dictionary = {
+            module = 'blink-cmp-dictionary',
+            name = 'Dict',
+            min_keyword_length = 3,
+            max_items = 8,
+            opts = {
+              dictionary_files = function()
+                if vim.bo.filetype == 'lilypond' then -- Add lilypond words to sources
+                  return vim.fn.glob(vim.fn.expand '$LILYDICTPATH' .. '/*', true, true)
+                end
+              end,
             },
           },
         },
