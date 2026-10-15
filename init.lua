@@ -11,11 +11,11 @@ require 'options'
 -- [[ Basic Keymaps ]]
 require 'keymaps'
 
--- [[ Install `lazy.nvim` plugin manager ]]
-require 'lazy-bootstrap'
+-- [[ Set up vim.pack ]]
+require 'pack'
 
 -- [[ Configure and install plugins ]]
-require 'lazy-plugins'
+require 'plugins'
 
 -- LuaSnip
 -- local ls = require 'luasnip'
