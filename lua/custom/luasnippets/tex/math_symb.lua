@@ -5,6 +5,12 @@ local base_config = function(trigger)
 end
 
 return {
+  h.s({
+    trig = '*',
+    snippetType = 'autosnippet',
+    condition = h.in_mathzone,
+    wordTrig = false,
+  }, h.t '\\cdot '),
   h.s(base_config 'aa', {
     h.t '\\alpha',
   }),
@@ -29,11 +35,14 @@ return {
   h.s(base_config 'QQ', {
     h.t '\\mathbb{Q}',
   }),
+  h.s(base_config 'KK', {
+    h.t '\\mathbb{K}',
+  }),
 
-  h.s(base_config 'tot', {
+  h.s({ trig = 'tot', snippetType = 'autosnippet', condition = h.in_mathzone }, {
     h.t '\\forall',
   }),
-  h.s(base_config 'ex', {
+  h.s({ trig = 'ex', snippetType = 'autosnippet', condition = h.in_mathzone }, {
     h.t '\\exists',
   }),
 }

@@ -24,4 +24,10 @@ return {
       h.i(0),
     })
   ),
+  h.s(
+    { trig = 'tt', snippetType = 'autosnippet', condition = h.in_mathzone },
+    h.fmta('\\text{<>}', {
+      h.i(1),
+    })
+  ),
 }

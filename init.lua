@@ -27,10 +27,10 @@ require 'lazy-plugins'
 vim.cmd [[
 imap <silent><expr> <Tab> luasnip#expandable() ? '<Plug>luasnip-expand-snippet' : '<Tab>' 
 
-imap <silent><expr> jk luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : 'jk'
-smap <silent><expr> jk luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : 'jk'
-
 nnoremap <leader>L <Cmd>lua require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})<CR>
+
+imap <silent><expr> jk luasnip#choice_active() ? "<Plug>luasnip-next-choice" : "jk"
+smap <silent><expr> jk luasnip#choice_active() ? "<Plug>luasnip-next-choice" : "jk"
 ]]
 require('luasnip').config.set_config { -- Setting LuaSnip config
 

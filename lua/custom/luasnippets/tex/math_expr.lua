@@ -1,13 +1,80 @@
 local h = require 'custom.helpers-luasnip'
 
+local mat = function(args, snip)
+  local rows = tonumber(snip.captures[2])
+  local cols = tonumber(snip.captures[3])
+  local nodes = {}
+  local ins_indx = 1
+  for j = 1, rows do
+    table.insert(nodes, h.r(ins_indx, tostring(j) .. 'x1', h.i(1)))
+    ins_indx = ins_indx + 1
+    for k = 2, cols do
+      table.insert(nodes, h.t ' & ')
+      table.insert(nodes, h.r(ins_indx, tostring(j) .. 'x' .. tostring(k), h.i(1)))
+      ins_indx = ins_indx + 1
+    end
+    table.insert(nodes, h.t { ' \\\\', '' })
+  end
+  -- fix last node.
+  nodes[#nodes] = h.t ' \\\\'
+  return h.sn(nil, nodes)
+end
+
 return {
   h.s({
     trig = 'df',
-    -- snippetType = 'autosnippet',
+    snippetType = 'autosnippet',
     condition = h.in_mathzone,
   }, {
     h.t '\\diff ',
   }),
+
+  h.s( -- TODO: acabar aquest daixonses d'integrals (1:subíndex,2:superíndex,3:cos,4:variable)
+    {
+      trig = 'int',
+      snippetType = 'autosnippet',
+      condition = h.in_mathzone,
+    },
+    h.fmta('\\int<><><>\\text{d<>}', {
+      h.t '',
+      h.t '',
+      h.t '',
+      h.t '',
+    })
+  ),
+
+  h.s(
+    {
+      trig = '([bBpvV])mat(%d+)x(%d+)([ar])',
+      regTrig = true,
+      name = 'matrix',
+      descr = 'matrix trigger',
+      hidden = true,
+      condition = h.in_mathzone,
+    },
+    h.fmta(
+      [[
+            \begin{<>}<>
+            <>
+            \end{<>}
+            ]],
+      {
+        h.f(function(_, snip)
+          return snip.captures[1] .. 'matrix'
+        end),
+        h.f(function(_, snip)
+          if snip.captures[4] == 'a' then
+            local out = string.rep('c', tonumber(snip.captures[3]) - 1)
+            return '[' .. out .. '|c]'
+          end
+        end),
+        h.d(1, mat),
+        h.f(function(_, snip)
+          return snip.captures[1] .. 'matrix'
+        end),
+      }
+    )
+  ),
 
   h.s(
     {
