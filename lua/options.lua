@@ -85,4 +85,6 @@ vim.o.confirm = true
 --
 -- El plugin VimTex ho canvia a 1, però com que ho fa més tard aquí especifiquem que és 1 i així ho serà per altres tipus de fitxers
 vim.o.conceallevel = 0
+-- Importantíssim!! Per no alinear amb & a dins d'align i entorns així
+vim.g.vimtex_indent_on_ampersands = 0
 -- vim: ts=2 sts=2 sw=2 et
